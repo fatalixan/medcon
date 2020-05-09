@@ -38,7 +38,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+
+
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -51,6 +59,12 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'medconsulting.urls'
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
 
 TEMPLATES = [
     {
@@ -86,6 +100,15 @@ DATABASES = {
     }
 }
 
+
+
+ACCOUNT_ACTIVATION_DAYS = 3
+EMAIL_USE_TLS=1
+EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'ayshan.afandi@mail.ru'
+EMAIL_HOST_PASSWORD = '7770428a'
+DEFAULT_FROM_EMAIL = 'ayshan.afandi@mail.ru'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
