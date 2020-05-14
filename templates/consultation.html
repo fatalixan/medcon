@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block content %}
+<div>My consultations</div>
+{% for query in que  %}
+    <h2>{{query.query_text}}</h2>
+{% endfor %}
+
+{% endblock %}

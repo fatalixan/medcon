@@ -1,8 +1,18 @@
-from django.http import Http404
+from django.shortcuts import render
 from django.views.generic import DetailView, CreateView, UpdateView
 from django.shortcuts import redirect
 
-from .models import Profile
+from .models import Profile, Query
+
+def home(request):
+    return render(request, 'index.html')
+
+class Consultation(DetailView):
+    model = Query
+    template_name = 'consultation.html'
+    context_object_name = 'que'
+    def get_object(self):
+        return Query.objects.all()
 
 
 class MyProfile(DetailView):
@@ -14,7 +24,6 @@ class MyProfile(DetailView):
 
     def get(self, request, *args, **kwargs):
         if not Profile.objects.filter(user=self.request.user):
-        #if not self.request.user.profile_set.all():
             return redirect('create_profile')
         return super().get(request, *args, **kwargs)
 
