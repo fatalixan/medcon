@@ -7,7 +7,7 @@ from .models import Profile, Query
 def home(request):
     return render(request, 'index.html')
 
-class Consultation(DetailView):
+class ConsultationView(DetailView):
     model = Query
     template_name = 'consultation.html'
     context_object_name = 'que'
