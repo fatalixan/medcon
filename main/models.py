@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -5,13 +6,20 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 class Query(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=0)
+    date_of_creation = models.DateTimeField(default=timezone.now)
+    query_text = models.TextField()
+    files_name = models.FileField(blank=True)
 
-    date_of_creation = models.DateTimeField("Date of creation")
-    query_text = models.TextField("Query text")
-    files_name = models.CharField("Files name", max_length=255)
+    class Meta:
+        verbose_name = "Запрос на консультацию"
+        verbose_name_plural = "Запросы на консультации"
+
+
 
 class Consultation(models.Model):
-
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=0)
+    query = models.ForeignKey(Query, on_delete=models.CASCADE, default=0)
     medical_report = models.TextField("Report")
     date_of_consultation = models.DateTimeField()
 
