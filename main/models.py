@@ -1,3 +1,4 @@
+from django.db.models.fields.files import FieldFile
 from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import User
@@ -9,11 +10,19 @@ class Query(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=0)
     date_of_creation = models.DateTimeField(default=timezone.now)
     query_text = models.TextField()
-    files_name = models.FileField(blank=True)
+
 
     class Meta:
         verbose_name = "Запрос на консультацию"
         verbose_name_plural = "Запросы на консультации"
+
+class Files(models.Model):
+    file = models.FileField(upload_to='files', blank=True, null=True, verbose_name="Файл")
+    files = models.ForeignKey(Query, blank=True, null=True, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = "Файлы"
+        verbose_name_plural = "Файлы"
 
 
 
@@ -23,6 +32,9 @@ class Consultation(models.Model):
     medical_report = models.TextField("Report")
     date_of_consultation = models.DateTimeField()
 
+    class Meta:
+        verbose_name = "Консультация"
+        verbose_name_plural = "Консультации"
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
