@@ -10,11 +10,7 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AlterField(
-            model_name='query',
-            name='files_name',
-            field=models.FileField(upload_to=''),
-        ),
+
         migrations.AlterField(
             model_name='query',
             name='query_text',

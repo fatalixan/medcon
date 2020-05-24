@@ -4,7 +4,6 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-# Create your models here.
 
 class Query(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=0)
@@ -16,6 +15,11 @@ class Query(models.Model):
         verbose_name = "Запрос на консультацию"
         verbose_name_plural = "Запросы на консультации"
 
+class Query_status(models.Model):
+
+    name = models.CharField("Query status", max_length=50)
+    query = models.OneToOneField(Query, on_delete=models.CASCADE, default=0)
+
 class Files(models.Model):
     file = models.FileField(upload_to='files', blank=True, null=True, verbose_name="Файл")
     files = models.ForeignKey(Query, blank=True, null=True, on_delete=models.CASCADE)
@@ -25,16 +29,27 @@ class Files(models.Model):
         verbose_name_plural = "Файлы"
 
 
-
 class Consultation(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=0)
     query = models.ForeignKey(Query, on_delete=models.CASCADE, default=0)
-    medical_report = models.TextField("Report")
     date_of_consultation = models.DateTimeField()
 
     class Meta:
         verbose_name = "Консультация"
         verbose_name_plural = "Консультации"
+
+
+class Report(models.Model):
+
+    medical_report = models.TextField("Report")
+    consultation = models.OneToOneField(Consultation, on_delete=models.CASCADE, default=0)
+
+
+class Consultation_status(models.Model):
+
+    name = models.CharField("Consultation status", max_length=50)
+    consultation = models.OneToOneField(Consultation, on_delete=models.CASCADE, default=0)
+
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -43,13 +58,6 @@ class Profile(models.Model):
     sex = models.BooleanField()
     lang = models.CharField(max_length=3)
 
-class Medical_record(models.Model):
-    information = models.CharField(max_length=255)
-    pass
-
-class Consultation_status(models.Model):
-
-    name = models.CharField("Consultation status", max_length=50)
 
 
 

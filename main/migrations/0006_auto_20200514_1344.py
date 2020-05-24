@@ -9,10 +9,5 @@ class Migration(migrations.Migration):
         ('main', '0005_auto_20200514_1339'),
     ]
 
-    operations = [
-        migrations.AlterField(
-            model_name='query',
-            name='files_name',
-            field=models.FileField(blank=True, upload_to=''),
-        ),
-    ]
+
+

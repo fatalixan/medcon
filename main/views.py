@@ -11,8 +11,9 @@ class ConsultationView(DetailView):
     model = Query
     template_name = 'consultation.html'
     context_object_name = 'que'
+
     def get_object(self):
-        return Query.objects.all()
+        return Query.objects.filter(user_id=self.request.user)
 
 
 class MyProfile(DetailView):
@@ -20,7 +21,7 @@ class MyProfile(DetailView):
     template_name = 'profile.html'
 
     def get_object(self, queryset=None):
-        return Profile.objects.get(user=self.request.user)
+        if self.request.user.groups.filter(name='Doctors').exists(): return Profile.objects.get(user=self.request.user)
 
     def get(self, request, *args, **kwargs):
         if not Profile.objects.filter(user=self.request.user):

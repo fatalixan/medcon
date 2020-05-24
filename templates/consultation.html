@@ -1,8 +1,22 @@
-{% extends 'base.html' %}
+{% extends 'main.html' %}
+
 {% block content %}
-<div>My consultations</div>
-{% for query in que  %}
-    <h2>{{query.query_text}}</h2>
-{% endfor %}
+
+<div class="main">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <td>Date</td>
+            <td>Query</td>
+        </tr>
+        {% for query in que  %}
+            <tr>
+                <td>{{ query.date_of_creation }}</td>
+                <td>{{query.query_text}}</td>
+            </tr>
+            {% endfor %}
+        </thead>
+    </table>
+</div>
 
 {% endblock %}

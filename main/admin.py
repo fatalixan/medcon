@@ -6,12 +6,12 @@ from .models import Profile, Query, Consultation, Files
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ['birth_date', 'tnumber']
 
-@admin.register(Query)
-class QueryAdmin(admin.ModelAdmin):
-    pass
-
 @admin.register(Files)
 class FilesAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Query)
+class QueryAdmin(admin.ModelAdmin):
     pass
 
 @admin.register(Consultation)
